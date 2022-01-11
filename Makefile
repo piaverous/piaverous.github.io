@@ -13,6 +13,7 @@ run: start ## Alias for start
 build:  ## Builds the site
 	$(call info_colors,blue,🔨 Building)
 	@hugo --minify
+	@cp CNAME public
 
 ##@ Clean
 clean: ## Clean the public folder
