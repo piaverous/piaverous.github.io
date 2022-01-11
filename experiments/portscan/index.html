@@ -1,0 +1,115 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=author content="Pierre Averous ">
+<meta name=description content="This experiment is about running a port scan of the client accessing this page.
+How is this done you may ask ? Well I did not invent it, so kudos to Avi Lumelsky who wrote this brilliant article : Browsers — A Localhost Gateway: Client Port Scanning Using WebAssembly And Go.
+The global principle is to have the browser make HTTP requests locally, on every port that you want to scan.">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<meta name=theme-color content>
+<link rel=canonical href=https://pivrous.wtf/experiments/portscan/>
+<title>
+Portscan :: Pierre Averous — Site Reliability Engineer @Padok
+</title>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=/main.17863a81d979b637a02cd7632a4d86e9d80563ef460fd6af1a56962efcaa066b.css>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<link rel=mask-icon href=/safari-pinned-tab.svg color>
+<link rel="shortcut icon" href=/favicon.ico>
+<meta name=msapplication-TileColor content>
+<meta name=theme-color content>
+<meta itemprop=name content="Portscan">
+<meta itemprop=description content="This experiment is about running a port scan of the client accessing this page.
+How is this done you may ask ? Well I did not invent it, so kudos to Avi Lumelsky who wrote this brilliant article : Browsers — A Localhost Gateway: Client Port Scanning Using WebAssembly And Go.
+The global principle is to have the browser make HTTP requests locally, on every port that you want to scan."><meta itemprop=datePublished content="2022-01-02T16:07:11+01:00">
+<meta itemprop=dateModified content="2022-01-02T16:07:11+01:00">
+<meta itemprop=wordCount content="362"><meta itemprop=image content="https://pivrous.wtf">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://pivrous.wtf">
+<meta name=twitter:title content="Portscan">
+<meta name=twitter:description content="This experiment is about running a port scan of the client accessing this page.
+How is this done you may ask ? Well I did not invent it, so kudos to Avi Lumelsky who wrote this brilliant article : Browsers — A Localhost Gateway: Client Port Scanning Using WebAssembly And Go.
+The global principle is to have the browser make HTTP requests locally, on every port that you want to scan.">
+<meta property="og:title" content="Portscan">
+<meta property="og:description" content="This experiment is about running a port scan of the client accessing this page.
+How is this done you may ask ? Well I did not invent it, so kudos to Avi Lumelsky who wrote this brilliant article : Browsers — A Localhost Gateway: Client Port Scanning Using WebAssembly And Go.
+The global principle is to have the browser make HTTP requests locally, on every port that you want to scan.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://pivrous.wtf/experiments/portscan/"><meta property="og:image" content="https://pivrous.wtf"><meta property="article:section" content="experiments">
+<meta property="article:published_time" content="2022-01-02T16:07:11+01:00">
+<meta property="article:modified_time" content="2022-01-02T16:07:11+01:00"><meta property="og:site_name" content="Pierre Averous">
+<meta property="article:published_time" content="2022-01-02 16:07:11 +0100 +0100">
+</head>
+<body>
+<div class=container>
+<header class=header>
+<span class=header__inner>
+<a href=/ style=text-decoration:none>
+<div class=logo>
+<span class=logo__mark>></span>
+<span class=logo__text>$ curl pivrous.wtf</span>
+<span class=logo__cursor>
+</span>
+</div>
+</a>
+<span class=header__right>
+<nav class=menu>
+<ul class=menu__inner><li><a href=/experiments>Experiments</a></li>
+</ul>
+</nav>
+<span class=menu-trigger><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+</span>
+</span>
+</span>
+</header>
+<div class=content>
+<main class=post>
+<div class=post-info>
+</p>
+</div>
+<article>
+<h2 class=post-title><a href=https://pivrous.wtf/experiments/portscan/>Portscan</a></h2>
+<div class=post-content>
+<p>This experiment is about running a port scan of the client accessing this page.</p>
+<p>How is this done you may ask ? Well I did not invent it, so kudos to <a href=https://avi-lumelsky.medium.com/>Avi Lumelsky</a> who wrote this brilliant article : <a href=https://infosecwriteups.com/identify-website-users-by-client-port-scanning-using-webassembly-and-go-e9798b4aa05c>Browsers — A Localhost Gateway: Client Port Scanning Using WebAssembly And Go</a>.</p>
+<p>The global principle is to have the browser make HTTP requests locally, on every port that you want to scan. This is usually blocked by all modern browsers, but there seems to be a flaw when the requests are made through webassembly.</p>
+<p>Analysing the response you get for each request, you can determine whether the port is open or closed !</p>
+<blockquote>
+<p>Note : it appears in the latest <a href=https://brave.com/>Brave Browser</a> release, these requests are recognized as potential trackers, and are therefore blocked. A great proof of concept that blocking site trackers not only increases your privacy, but your security as well.</p>
+</blockquote>
+<p>This is quite an interesting little project for one to build, that I totally recommend. It takes some fiddling with Golang and Javascript, and integrating it into a website with Webassembly is not as straightforward as one may think.</p>
+<p>While reading this, your device actually got scanned ! You want to see the results ? Just wait a couple seconds for them to appear just below right here, once the scan is completed.</p>
+<script src=/golang/wasm_exec.js></script>
+<script>var show,hide;const sleep=a=>new Promise(b=>setTimeout(b,a));show=function(a){a.style.display='block'},hide=function(a){a.style.display='none'}</script>
+<script>const runPortScan=()=>{const a=new Go;WebAssembly.instantiateStreaming(fetch("/portscan/main.wasm"),a.importObject).then(b=>{a.run(b.instance)})}</script>
+<script>const pollForResult=async()=>{let a=document.getElementById("scanResults"),b=document.getElementById("scanResultsText");for(hide(a);window.portsMapping===void 0;)await sleep(1e3);if(console.log('Finished scanning !'),openPorts=Object.fromEntries(Object.entries(window.portsMapping).filter(([b,a])=>a==!0)),b.innerHTML=`Scanned ${Object.keys(window.portsMapping).length} ports. Found the following open ports :`,Object.keys(openPorts).forEach(c=>{let b=document.createElement('li');b.appendChild(document.createTextNode(c)),a.appendChild(b)}),Object.keys(openPorts).length==0){let b=document.createElement('li');b.appendChild(document.createTextNode("No open port was found !")),a.appendChild(b)}show(a)}</script>
+<div id=scanResultsText>Scan in progress...</div>
+<ul id=scanResults></ul>
+<script>scanner=new Promise(runPortScan),poller=new Promise(pollForResult),Promise.all([scanner,poller])</script>
+</div>
+</article>
+<hr>
+<div class=post-info>
+</div>
+</main>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=footer__content>
+<span>&copy; 2022</span>
+<span><a href=https://pivrous.wtf>Pierre Averous</a></span>
+<span><a href=https://pivrous.wtf/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></span>
+</div>
+</div>
+</footer>
+</div>
+<script type=text/javascript src=/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+</body>
+</html>
