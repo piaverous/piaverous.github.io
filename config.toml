@@ -4,6 +4,12 @@ languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10
 
+contentDir   = "content"
+publishDir   = "public"
+
+[author]
+  name = "Pierre Averous"
+
 [params]
   dateform        = "Jan 2, 2006"
   dateformShort   = "Jan 2"
@@ -45,6 +51,14 @@ paginate     = 10
     name = "medium"
     url = "https://piaverous.medium.com"
 
+  [params.footer]
+    trademark = true
+    rss = true
+    author = true
+
+    topText = []
+    bottomText = []
+
 [taxonomies]
     category = "blog"
     tag      = "tags"
@@ -59,6 +73,7 @@ paginate     = 10
     readOtherPosts = "Read other posts"
 
     [languages.en.params.logo]
+      logoMark     = ">"
       logoText = "$ curl pivrous.wtf"
       logoHomeLink = "/"
     # or
@@ -66,8 +81,8 @@ paginate     = 10
     # path = "/img/your-example-logo.svg"
     # alt = "Your example logo alt text"
 
-  # And you can even create generic menu
-  # [[menu.main]]
-  #   identifier = "blog"
-  #   name       = "Blog"
-  #   url        = "/posts"
+[menu]
+  [[menu.main]]
+    identifier = "experiments"
+    name       = "Experiments"
+    url        = "/experiments"

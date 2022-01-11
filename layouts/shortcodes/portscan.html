@@ -1,0 +1,62 @@
+<script src="/golang/wasm_exec.js"></script>
+
+<script>
+    // Define Sleep function
+    const sleep = t => new Promise(s => setTimeout(s, t));
+
+    // Show an element
+    var show = function (elem) {
+        elem.style.display = 'block';
+    };
+
+    // Hide an element
+    var hide = function (elem) {
+        elem.style.display = 'none';
+    };
+</script>
+
+<script>
+    const runPortScan = () => {
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("/portscan/main.wasm"), go.importObject)
+            .then((result) => {
+                go.run(result.instance);
+            });
+    }
+</script>
+<script>
+    const pollForResult = async () => {
+        let results = document.getElementById("scanResults")
+        let resultsDiv = document.getElementById("scanResultsText")
+        hide(results)
+
+        while (window.portsMapping === undefined) {
+            await sleep(1000)
+        }
+        console.log('Finished scanning !')
+        openPorts = Object.fromEntries(Object.entries(window.portsMapping).filter(([k, v]) => v == true));
+
+        resultsDiv.innerHTML = (`Scanned ${Object.keys(window.portsMapping).length} ports. Found the following open ports :`);
+
+        Object.keys(openPorts).forEach(port => {
+            let newLI = document.createElement('li');
+            newLI.appendChild(document.createTextNode(port));
+            results.appendChild(newLI);
+        })
+        if (Object.keys(openPorts).length == 0) {
+            let newLI = document.createElement('li');
+            newLI.appendChild(document.createTextNode("No open port was found !"));
+            results.appendChild(newLI);
+        }
+        show(results)
+    }
+</script>
+
+<div id="scanResultsText">Scan in progress...</div>
+<ul id="scanResults"></ul>
+
+<script>
+    scanner = new Promise(runPortScan)
+    poller = new Promise(pollForResult)
+    Promise.all([scanner, poller])
+</script>
