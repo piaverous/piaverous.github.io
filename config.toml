@@ -1,4 +1,4 @@
-baseurl      = "https://pivrous.wtf"
+baseurl      = "https://pivrous.fr"
 title        = "Pivrous"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
@@ -17,7 +17,7 @@ publishDir   = "public"
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "Site Reliability Engineer <a href='https://padok.fr/'>@Padok</a>"
+  homeSubtitle = "Site Reliability Engineer"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
@@ -74,7 +74,7 @@ publishDir   = "public"
 
     [languages.en.params.logo]
       logoMark     = ">"
-      logoText = "$ curl pivrous.wtf"
+      logoText = "$ curl pivrous.fr"
       logoHomeLink = "/"
     # or
     #
